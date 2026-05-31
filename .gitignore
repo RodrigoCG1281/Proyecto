@@ -1,0 +1,17 @@
+# Entorno virtual
+venv/
+.venv/
+Env/
+bin/
+lib/
+share/
+Include/
+
+# Docker y Base de datos local
+.docker/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

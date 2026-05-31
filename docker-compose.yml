@@ -1,0 +1,17 @@
+services:
+  postgres-vector:
+    image: pgvector/pgvector:pg16
+    container_name: postgres_vector_db
+    environment:
+      POSTGRES_DB: ecommerce_vectorial
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

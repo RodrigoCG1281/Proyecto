@@ -17,51 +17,27 @@ El pipeline procesa un dataset real de Amazon, convirtiendo las descripciones de
 
 ```text
 📂 Trabajo grupal/
-├── 📄 docker-compose.yml        # Infraestructura de PostgreSQL + pgvector
+├── 📄 docker-compose.yml        # Orquesta la base de datos y el contenedor de carga
+├── 📄 Dockerfile                # Entorno aislado para ejecutar el pipeline de Python
 ├── 📂 init-scripts/
-│   └── 📄 init.sql               # Inicialización automática (Extensión y Tabla)
+│   └── 📄 init.sql               # Inicialización automática de la base de datos (pgvector y tablas)
 ├── 📂 ml-artifacts/
 │   └── 📂 embeddings/
 │       └── 📄 item_embeddings.csv     # Entregable: Dataset de Amazon con Embeddings (1,351 productos)
-├── 📄 generar_embeddings.py       # Script de IA: Modelo NLP SentenceTransformers
-└── 📄 cargar_en_postgres.py       # Pipeline ETL: Carga masiva a la Base de Datos
+├── 📄 generar_embeddings.py       # Respaldo de IA: Modelo NLP SentenceTransformers
+└── 📄 cargar_en_postgres.py       # Código ETL: Lógica de inserción masiva por lotes
 ```
 
 --- 
 # Guía de Inicialización y Carga de Datos
 
-## 1. Levantar la Infraestructura (Docker)
-
-Asegúrate de tener Docker abierto. En la raíz del proyecto, ejecuta el siguiente comando para iniciar el servidor de PostgreSQL en segundo plano:
+## 1. Desplegar el Entorno Global
 
 ```bash
 docker compose up -d
 ```
 
-> **Nota:** Este comando descargará la imagen oficial de **pgvector** y ejecutará automáticamente el script `init-scripts/init.sql`, dejando la extensión activada y la tabla `products` creada y vacía.
-
----
-
-## 2. Configurar el Entorno Virtual de Python
-
-Crea y activa un entorno virtual para instalar las dependencias necesarias:
-
-### Windows (Git Bash / MINGW64)
-
-```bash
-python -m venv venv
-source venv/Scripts/activate
-```
-
-### Instalar dependencias
-
-```bash
-pip install pandas psycopg2-binary
-```
-
----
-
-## 3. Poblar la Base de Datos Vectorial
+## 2. Poblar la Base de Datos Vectorial
 
 Ejecuta el pipeline ETL para leer el archivo CSV e insertar masivamente los **1,351 productos** junto con sus respectivos vectores en PostgreSQL:
 

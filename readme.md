@@ -25,8 +25,9 @@ El pipeline procesa un dataset real de Amazon, convirtiendo las descripciones de
 │       └── 📄 item_embeddings.csv     # Entregable: Dataset de Amazon con Embeddings (1,351 productos)
 ├── 📄 generar_embeddings.py       # Script de IA: Modelo NLP SentenceTransformers
 └── 📄 cargar_en_postgres.py       # Pipeline ETL: Carga masiva a la Base de Datos
+```
 
-
+--- 
 # Guía de Inicialización y Carga de Datos
 
 ## 1. Levantar la Infraestructura (Docker)
